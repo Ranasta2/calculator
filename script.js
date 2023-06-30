@@ -1,22 +1,43 @@
+let firstNum = '';
+let secondNum = '';
+let operator = '';
+
 const container = document.querySelector('#calculator')
 const keypad = document.querySelector('#keypad')
 const screen = document.querySelector('#screen')
 const numbers = document.querySelector('#numbers')
+const operators = document.querySelector('#commands')
 
 numbers.childNodes.forEach((num) => {
-    num.addEventListener('click', () => {
-        screen.innerHTML += num.innerHTML
-    })
+    num.addEventListener('click', () => numberPressed(num.innerHTML))
+})
+
+operators.childNodes.forEach((op) => {
+    op.addEventListener('click', () => operatorPressed(op.innerHTML))
 })
 
 const clear = document.getElementById('clear')
 
 clear.addEventListener('click',() => {
-    return screen.innerHTML = " "
+    firstNum = ''
+    secondNum = ''
+    operator = ''
+    screen.innerHTML = ''
 })
 
 function numberPressed(num) {
-    screen.innerHTML += num
+    if (operator === '') {
+        firstNum += num
+
+    } else {
+        secondNum += num
+    }
+    screen.innerHTML = firstNum + operator + secondNum
+}
+
+function operatorPressed(op) {
+    operator = op
+    screen.innerHTML = firstNum + operator + secondNum
 }
 
 function add(num1, num2) {
