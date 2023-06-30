@@ -25,6 +25,9 @@ clear.addEventListener('click',() => {
     screen.innerHTML = ''
 })
 
+const equals = document.getElementById('equals')
+equals.addEventListener('click', () => operate())
+
 function numberPressed(num) {
     if (operator === '') {
         firstNum += num
@@ -40,34 +43,45 @@ function operatorPressed(op) {
     screen.innerHTML = firstNum + operator + secondNum
 }
 
-function add(num1, num2) {
-    return num1+num2
+function updateDisplay(num) {
+    screen.innerHTML = num
+    firstNum = num
+    operator = ''
+    secondNum = ''
 }
 
-function subtract(num1, num2) {
-    return num1-num2
+function add(firstNum, secondNum) {
+    return firstNum+secondNum
 }
 
-function multiply(num1, num2) {
-    return num1*num2
+function subtract(firstNum, secondNum) {
+    return firstNum-secondNum
 }
 
-function divide(num1, num2) {
-    if (num2 == 0){
+function multiply(firstNum, secondNum) {
+    return firstNum*secondNum
+}
+
+function divide(firstNum, secondNum) {
+    if (secondNum == 0){
+        screen.innerHTML = "xxx ID-10T ERROR xxx"
         return 0
     }
-    return num1/num2
+    return firstNum/secondNum
 }
 
-function operate(op, num1, num2) {
-    switch (op) {
+function operate() {
+    if (firstNum == '' || secondNum == '') {
+        return
+    }
+    switch (operator) {
         case '+':
-            return add(num1,num2)
+            return updateDisplay(add(firstNum,secondNum))
         case '-':
-            return subtract(num1,num2)
+            return updateDisplay(subtract(firstNum,secondNum))
         case '*':
-            return multiply(num1,num2)
+            return updateDisplay(multiply(firstNum,secondNum))
         case '/':
-            return divide(num1,num2)
+            return updateDisplay(divide(firstNum,secondNum))
     }
 }
